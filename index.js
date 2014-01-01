@@ -10,7 +10,7 @@ module.exports = function (str, ext, cb) {
 
 	var filePath = tempfile(ext);
 
-	fs.writeFile(filePath, str, 'binary', function (err) {
+	fs.writeFile(filePath, str, function (err) {
 		cb(err, filePath);
 	});
 };
