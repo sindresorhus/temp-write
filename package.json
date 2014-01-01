@@ -1,6 +1,6 @@
 {
   "name": "temp-write",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Write String/Buffer to a random temp file",
   "license": "MIT",
   "repository": "sindresorhus/temp-write",
