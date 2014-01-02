@@ -28,16 +28,24 @@ fs.readFileSync(filePath, 'utf8');
 
 ## API
 
-### tempWrite(input, callback)
+### tempWrite(input, [extension], callback)
 
 #### input
 
+*Required*  
 Type: `String`|`Buffer`
+
+#### extension
+
+Type: `String`  
+Example: `'.png'`
+
+Append an extension to the path.
 
 #### callback(err, filePath)
 
+*Required*  
 Type: `Function`
-
 
 ### tempWrite.sync(input)
 
