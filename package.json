@@ -24,6 +24,7 @@
     "temporary",
     "tempfile",
     "file",
+    "filename",
     "path",
     "random",
     "rand",
@@ -34,7 +35,8 @@
   ],
   "dependencies": {
     "graceful-fs": "~2.0.0",
-    "tempfile": "~0.1.2"
+    "uuid": "~1.4.1",
+    "mkdirp": "~0.3.5"
   },
   "devDependencies": {
     "mocha": "*"

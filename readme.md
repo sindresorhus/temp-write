@@ -18,31 +18,31 @@ npm install --save temp-write
 var fs = require('fs');
 var tempWrite = require('temp-write');
 
-var filePath = tempWrite.sync('unicorn');
+var filepath = tempWrite.sync('unicorn');
 //=> /var/folders/_1/tk89k8215ts0rg0kmb096nj80000gn/T/4049f192-43e7-43b2-98d9-094e6760861b
 
-fs.readFileSync(filePath, 'utf8');
+fs.readFileSync(filepath, 'utf8');
 //=> unicorn
 ```
 
 
 ## API
 
-### tempWrite(input, [extension], callback)
+### tempWrite(input, [filename], callback)
 
 #### input
 
 *Required*  
 Type: `String`|`Buffer`
 
-#### extension
+#### filename
 
 Type: `String`  
-Example: `'.png'`
+Example: `'img.png'`
 
-Append an extension to the path.
+Optionally supply a custom filename.
 
-#### callback(err, filePath)
+#### callback(err, filepath)
 
 *Required*  
 Type: `Function`
@@ -50,7 +50,7 @@ Type: `Function`
 ### tempWrite.sync(input)
 
 Type: `String`|`Buffer`  
-Returns: the file path
+Returns: the filepath
 
 
 ## License
