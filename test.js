@@ -2,7 +2,7 @@
 var fs = require('fs');
 var path = require('path');
 var assert = require('assert');
-var tempWrite = require('./index');
+var tempWrite = require('./');
 
 describe('writeTemp()', function () {
 	it('should write string to a random temp file', function (cb) {

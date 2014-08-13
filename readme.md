@@ -1,11 +1,11 @@
 # temp-write [![Build Status](https://travis-ci.org/sindresorhus/temp-write.svg?branch=master)](https://travis-ci.org/sindresorhus/temp-write)
 
-> Write String/Buffer to a random temp file
+> Write string/buffer to a random temp file
 
 
 ## Install
 
-```bash
+```sh
 $ npm install --save temp-write
 ```
 
@@ -38,11 +38,11 @@ tempWrite.sync('unicorn', 'rainbow/cake/pony.png');
 #### input
 
 *Required*  
-Type: `String`|`Buffer`
+Type: `string`, `buffer`
 
 #### filepath
 
-Type: `String`  
+Type: `string`  
 Example: `'img.png'`, `'foo/bar/baz.png'`
 
 Optionally supply a filepath which is appended to the random path.
@@ -50,14 +50,14 @@ Optionally supply a filepath which is appended to the random path.
 #### callback(err, filepath)
 
 *Required*  
-Type: `Function`
+Type: `function`
 
 ### tempWrite.sync(input)
 
-Type: `String`|`Buffer`  
+Type: `string`, `buffer`  
 Returns: the filepath
 
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)
