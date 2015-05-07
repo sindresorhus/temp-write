@@ -1,12 +1,13 @@
 'use strict';
 var path = require('path');
-var tmpdir = require('os').tmpdir();
+var osTmpdir = require('os-tmpdir');
 var fs = require('graceful-fs');
 var mkdirp = require('mkdirp');
 var uuid = require('uuid');
+var TMP_DIR = osTmpdir();
 
 function tempfile(filepath) {
-	return path.join(tmpdir, uuid.v4(), (filepath || ''));
+	return path.join(TMP_DIR, uuid.v4(), (filepath || ''));
 }
 
 module.exports = function (str, filepath, cb) {
