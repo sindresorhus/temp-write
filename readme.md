@@ -58,6 +58,11 @@ Type: `string`, `buffer`
 Returns: the filepath
 
 
+## Related
+
+- [tempfile](https://github.com/sindresorhus/tempfile) - Get a random temp file path
+
+
 ## License
 
 MIT © [Sindre Sorhus](http://sindresorhus.com)
