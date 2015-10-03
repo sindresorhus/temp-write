@@ -4,25 +4,23 @@ var osTmpdir = require('os-tmpdir');
 var fs = require('graceful-fs');
 var mkdirp = require('mkdirp');
 var uuid = require('uuid');
+var pify = require('pify');
 var TMP_DIR = osTmpdir();
 
 function tempfile(filepath) {
 	return path.join(TMP_DIR, uuid.v4(), (filepath || ''));
 }
 
-module.exports = function (str, filepath, cb) {
-	if (typeof filepath === 'function') {
-		cb = filepath;
-		filepath = null;
-	}
-
+module.exports = function (str, filepath) {
 	var fullpath = tempfile(filepath);
 
-	mkdirp(path.dirname(fullpath), function (err) {
-		fs.writeFile(fullpath, str, function (err) {
-			cb(err, fullpath);
+	return pify(mkdirp)(path.dirname(fullpath))
+		.then(function () {
+			return pify(fs.writeFile)(fullpath, str);
+		})
+		.then(function () {
+			return fullpath;
 		});
-	});
 };
 
 module.exports.sync = function (str, filepath) {

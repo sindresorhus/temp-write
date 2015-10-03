@@ -33,7 +33,9 @@ tempWrite.sync('unicorn', 'rainbow/cake/pony.png');
 
 ## API
 
-### tempWrite(input, [filepath], callback)
+### tempWrite(input, [filepath])
+
+Returns a promise that resolves to the filepath of the temp file.
 
 #### input
 
@@ -42,19 +44,14 @@ Type: `string`, `buffer`
 
 #### filepath
 
-Type: `string`  
+Type: `string`
 Example: `'img.png'`, `'foo/bar/baz.png'`
 
 Optionally supply a filepath which is appended to the random path.
 
-#### callback(err, filepath)
-
-*Required*  
-Type: `function`
-
 ### tempWrite.sync(input)
 
-Type: `string`, `buffer`  
+Type: `string`, `buffer`
 Returns: the filepath
 
 

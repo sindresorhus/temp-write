@@ -1,36 +1,32 @@
-'use strict';
-var fs = require('fs');
-var path = require('path');
-var assert = require('assert');
-var tempWrite = require('./');
+import fs from 'fs';
+import test from 'ava';
+import path from 'path';
+import tempWrite from './';
 
-describe('writeTemp()', function () {
-	it('should write string to a random temp file', function (cb) {
-		tempWrite('unicorn', 'test.png', function (err, filepath) {
-			assert.equal(fs.readFileSync(filepath, 'utf8'), 'unicorn');
-			assert.equal(path.basename(filepath), 'test.png');
-			cb();
-		});
-	});
+test('tempWrite(string)', async t => {
+	const filepath = await tempWrite('unicorn', 'test.png');
 
-	it('should write buffer to a random temp file', function (cb) {
-		tempWrite(new Buffer('unicorn'), function (err, filepath) {
-			assert.equal(fs.readFileSync(filepath, 'utf8'), 'unicorn');
-			cb();
-		});
-	});
-
-	it('should write string to a random temp filepath', function (cb) {
-		tempWrite('unicorn', 'foo/bar/test.png', function (err, filepath) {
-			assert.equal(fs.readFileSync(filepath, 'utf8'), 'unicorn');
-			assert(/foo\/bar\/test\.png$/.test(filepath));
-			cb();
-		});
-	});
+	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
+	t.is(path.basename(filepath), 'test.png');
+	t.end();
 });
 
-describe('writeTemp.sync()', function () {
-	it('should write to a random temp file async', function () {
-		assert.equal(fs.readFileSync(tempWrite.sync('unicorn'), 'utf8'), 'unicorn');
-	});
+test('tempWrite(buffer)', async t => {
+	const filepath = await tempWrite(new Buffer('unicorn'), 'test.png');
+
+	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
+	t.end();
+});
+
+test('tempWrite(string, path)', async t => {
+	const filepath = await tempWrite(new Buffer('unicorn'), 'foo/bar/test.png');
+
+	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
+	t.regexTest(/foo\/bar\/test\.png$/, filepath);
+	t.end();
+});
+
+test('tempWrite.sync()', t => {
+	t.is(fs.readFileSync(tempWrite.sync('unicorn'), 'utf8'), 'unicorn');
+	t.end();
 });
