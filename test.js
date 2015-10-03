@@ -3,48 +3,30 @@ import test from 'ava';
 import path from 'path';
 import tempWrite from './';
 
-test('writeTemp(string)', async t => {
-	try {
-		var filepath = await tempWrite('unicorn', 'test.png');
+test('tempWrite(string)', async t => {
+	const filepath = await tempWrite('unicorn', 'test.png');
 
-		t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
-		t.is(path.basename(filepath), 'test.png');
-		t.end();
-	}
-	catch (err) {
-		t.fail(err);
-		t.end();
-	}
+	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
+	t.is(path.basename(filepath), 'test.png');
+	t.end();
 });
 
-test('writeTemp(buffer)', async t => {
-	try {
-		var filepath = await tempWrite(new Buffer('unicorn'), 'test.png');
+test('tempWrite(buffer)', async t => {
+	const filepath = await tempWrite(new Buffer('unicorn'), 'test.png');
 
-		t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
-		t.end();
-	}
-	catch (err) {
-		t.fail(err);
-		t.end();
-	}
+	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
+	t.end();
 });
 
-test('writeTemp(string, path)', async t => {
-	try {
-		var filepath = await tempWrite(new Buffer('unicorn'), 'foo/bar/test.png');
+test('tempWrite(string, path)', async t => {
+	const filepath = await tempWrite(new Buffer('unicorn'), 'foo/bar/test.png');
 
-		t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
-		t.regexTest(/foo\/bar\/test\.png$/, filepath);
-		t.end();
-	}
-	catch (err) {
-		t.fail(err);
-		t.end();
-	}
+	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
+	t.regexTest(/foo\/bar\/test\.png$/, filepath);
+	t.end();
 });
 
-test('writeTemp.sync()', t => {
+test('tempWrite.sync()', t => {
 	t.is(fs.readFileSync(tempWrite.sync('unicorn'), 'utf8'), 'unicorn');
 	t.end();
 });

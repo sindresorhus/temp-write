@@ -35,11 +35,11 @@ tempWrite.sync('unicorn', 'rainbow/cake/pony.png');
 
 ### tempWrite(input, [filepath])
 
-Returns a Promise.
+Returns a promise that resolves to the filepath of the temp file.
 
 #### input
 
-*Required*
+*Required*  
 Type: `string`, `buffer`
 
 #### filepath
