@@ -1,8 +1,7 @@
-'use strict';
-var fs = require('fs');
-var test = require('ava');
-var path = require('path');
-var tempWrite = require('./');
+import fs from 'fs';
+import test from 'ava';
+import path from 'path';
+import tempWrite from './';
 
 test('writeTemp(string)', async t => {
 	try {
