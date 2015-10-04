@@ -5,6 +5,7 @@ var fs = require('graceful-fs');
 var mkdirp = require('mkdirp');
 var uuid = require('uuid');
 var pify = require('pify');
+var Promise = require('pinkie-promise');
 var TMP_DIR = osTmpdir();
 
 function tempfile(filepath) {
@@ -14,9 +15,9 @@ function tempfile(filepath) {
 module.exports = function (str, filepath) {
 	var fullpath = tempfile(filepath);
 
-	return pify(mkdirp)(path.dirname(fullpath))
+	return pify(mkdirp, Promise)(path.dirname(fullpath))
 		.then(function () {
-			return pify(fs.writeFile)(fullpath, str);
+			return pify(fs.writeFile, Promise)(fullpath, str);
 		})
 		.then(function () {
 			return fullpath;
