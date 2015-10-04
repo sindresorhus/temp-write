@@ -8,14 +8,12 @@ test('tempWrite(string)', async t => {
 
 	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
 	t.is(path.basename(filepath), 'test.png');
-	t.end();
 });
 
 test('tempWrite(buffer)', async t => {
 	const filepath = await fn(new Buffer('unicorn'), 'test.png');
 
 	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
-	t.end();
 });
 
 test('tempWrite(string, path)', async t => {
@@ -23,10 +21,8 @@ test('tempWrite(string, path)', async t => {
 
 	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
 	t.regexTest(/foo\/bar\/test\.png$/, filepath);
-	t.end();
 });
 
 test('tempWrite.sync()', t => {
 	t.is(fs.readFileSync(fn.sync('unicorn'), 'utf8'), 'unicorn');
-	t.end();
 });
