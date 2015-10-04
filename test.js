@@ -25,4 +25,5 @@ test('tempWrite(string, path)', async t => {
 
 test('tempWrite.sync()', t => {
 	t.is(fs.readFileSync(fn.sync('unicorn'), 'utf8'), 'unicorn');
+	t.end();
 });
