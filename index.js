@@ -21,7 +21,17 @@ module.exports = function (str, filepath) {
 		.then(function () {
 			function pipeStream() {
 				return new Promise(function (resolve, reject) {
-					str.pipe(fs.createWriteStream(fullpath))
+					var writable = fs.createWriteStream(fullpath);
+					str
+						.on('error', function (err) {
+							// Be careful to reject before writable.end(), otherwise the writable's
+							// 'finish' event will fire first and we will resolve the promise
+							// before we reject it.
+							reject(err);
+							str.unpipe(writable);
+							writable.end();
+						})
+						.pipe(writable)
 						.on('error', reject)
 						.on('finish', resolve);
 				});
