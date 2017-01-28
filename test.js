@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import stream from 'stream';
 import test from 'ava';
 import m from './';
 
@@ -14,10 +15,20 @@ test('tempWrite(buffer)', async t => {
 	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
 });
 
-test('tempWrite(string, path)', async t => {
+test('tempWrite(buffer, path)', async t => {
 	const filepath = await m(new Buffer('unicorn'), 'foo/bar/test.png');
 	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
 	t.regex(filepath, /foo\/bar\/test\.png$/);
+});
+
+test('tempWrite(stream)', async t => {
+	const readable = new stream.Readable({
+		read() { /* noop */ }
+	});
+	readable.push('unicorn');
+	readable.push(null);
+	const filepath = await m(readable, 'test.png');
+	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
 });
 
 test('tempWrite.sync()', t => {

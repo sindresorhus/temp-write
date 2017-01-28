@@ -1,6 +1,6 @@
 # temp-write [![Build Status](https://travis-ci.org/sindresorhus/temp-write.svg?branch=master)](https://travis-ci.org/sindresorhus/temp-write)
 
-> Write string/buffer to a random temp file
+> Write string/buffer/stream to a random temp file
 
 
 ## Install
@@ -43,7 +43,9 @@ Returns the filepath of the temp file.
 
 #### input
 
-Type: `string`, `buffer`
+Type: `string`, `stream`, `buffer`
+
+The data to write to the temp file. Streams are supported only on the async API.
 
 #### filepath
 
