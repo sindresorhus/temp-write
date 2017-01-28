@@ -19,13 +19,14 @@ module.exports = function (str, filepath) {
 
 	return pify(mkdirp, Promise)(path.dirname(fullpath))
 		.then(function () {
-			return isStream(str) ?
-				new Promise((resolve, reject) => {
+			const pipeStream = () => {
+				return new Promise((resolve, reject) => {
 					str.pipe(fs.createWriteStream(fullpath))
 						.on('error', reject)
 						.on('finish', resolve);
-				}) :
-				pify(fs.writeFile, Promise)(fullpath, str);
+				});
+			};
+			return isStream(str) ? pipeStream() : pify(fs.writeFile, Promise)(fullpath, str);
 		})
 		.then(function () {
 			return fullpath;

@@ -1,6 +1,6 @@
 # temp-write [![Build Status](https://travis-ci.org/sindresorhus/temp-write.svg?branch=master)](https://travis-ci.org/sindresorhus/temp-write)
 
-> Write string/stream/buffer to a random temp file
+> Write string/buffer/stream to a random temp file
 
 
 ## Install
