@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import stream from 'stream';
 import test from 'ava';
-import m from './';
+import m from '.';
 
 test('tempWrite(string)', async t => {
 	const filepath = await m('unicorn', 'test.png');
@@ -23,7 +23,7 @@ test('tempWrite(buffer, path)', async t => {
 
 test('tempWrite(stream)', async t => {
 	const readable = new stream.Readable({
-		read() { /* noop */ }
+		read() {} // noop
 	});
 	readable.push('unicorn');
 	readable.push(null);

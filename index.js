@@ -1,53 +1,46 @@
 'use strict';
-var path = require('path');
-var osTmpdir = require('os-tmpdir');
-var fs = require('graceful-fs');
-var isStream = require('is-stream');
-var mkdirp = require('mkdirp');
-var uuid = require('uuid');
-var pify = require('pify');
-var Promise = require('pinkie-promise');
+const os = require('os');
+const path = require('path');
+const fs = require('graceful-fs');
+const isStream = require('is-stream');
+const mkdirp = require('mkdirp');
+const uuid = require('uuid');
+const pify = require('pify');
 
-var TMP_DIR = osTmpdir();
+const TMP_DIR = os.tmpdir();
+const tempfile = filepath => path.join(TMP_DIR, uuid.v4(), (filepath || ''));
 
-function tempfile(filepath) {
-	return path.join(TMP_DIR, uuid.v4(), (filepath || ''));
-}
+const writeStream = (filepath, input) => new Promise((resolve, reject) => {
+	const writable = fs.createWriteStream(filepath);
 
-module.exports = function (str, filepath) {
-	var fullpath = tempfile(filepath);
-
-	return pify(mkdirp, Promise)(path.dirname(fullpath))
-		.then(function () {
-			function pipeStream() {
-				return new Promise(function (resolve, reject) {
-					var writable = fs.createWriteStream(fullpath);
-					str
-						.on('error', function (err) {
-							// Be careful to reject before writable.end(), otherwise the writable's
-							// 'finish' event will fire first and we will resolve the promise
-							// before we reject it.
-							reject(err);
-							str.unpipe(writable);
-							writable.end();
-						})
-						.pipe(writable)
-						.on('error', reject)
-						.on('finish', resolve);
-				});
-			}
-			return isStream(str) ? pipeStream() : pify(fs.writeFile, Promise)(fullpath, str);
+	input
+		.on('error', err => {
+			// Be careful to reject before writable.end(), otherwise the writable's
+			// 'finish' event will fire first and we will resolve the promise
+			// before we reject it.
+			reject(err);
+			input.unpipe(writable);
+			writable.end();
 		})
-		.then(function () {
-			return fullpath;
-		});
+		.pipe(writable)
+		.on('error', reject)
+		.on('finish', resolve);
+});
+
+module.exports = (input, filepath) => {
+	const tempPath = tempfile(filepath);
+	const write = isStream(input) ? writeStream : pify(fs.writeFile);
+
+	return pify(mkdirp)(path.dirname(tempPath))
+		.then(() => write(tempPath, input))
+		.then(() => tempPath);
 };
 
-module.exports.sync = function (str, filepath) {
-	var fullpath = tempfile(filepath);
+module.exports.sync = (input, filepath) => {
+	const tempPath = tempfile(filepath);
 
-	mkdirp.sync(path.dirname(fullpath));
-	fs.writeFileSync(fullpath, str);
+	mkdirp.sync(path.dirname(tempPath));
+	fs.writeFileSync(tempPath, input);
 
-	return fullpath;
+	return tempPath;
 };

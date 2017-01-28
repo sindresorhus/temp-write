@@ -35,7 +35,7 @@ tempWrite.sync('unicorn', 'rainbow/cake/pony.png');
 
 ### tempWrite(input, [filepath])
 
-Returns a promise that resolves to the filepath of the temp file.
+Returns a `Promise` for the filepath of the temp file.
 
 ### tempWrite.sync(input, [filepath])
 
@@ -43,14 +43,14 @@ Returns the filepath of the temp file.
 
 #### input
 
-Type: `string`, `stream`, `buffer`
+Type: `string` `Buffer` `ReadableStream`
 
-The data to write to the temp file. Streams are supported only on the async API.
+Data to write to the temp file. Streams are supported only with the async API.
 
 #### filepath
 
-Type: `string`  
-Example: `'img.png'`, `'foo/bar/baz.png'`
+Type: `string`<br>
+Example: `'img.png'` `'foo/bar/baz.png'`
 
 Optionally supply a filepath which is appended to the random path.
 
@@ -62,4 +62,4 @@ Optionally supply a filepath which is appended to the random path.
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
