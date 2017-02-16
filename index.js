@@ -8,7 +8,18 @@ const uuid = require('uuid');
 const pify = require('pify');
 
 const TMP_DIR = os.tmpdir();
-const tempfile = filepath => path.join(TMP_DIR, uuid.v4(), (filepath || ''));
+
+// Workaround for https://github.com/nodejs/node/issues/11422
+let _resolved;
+const getTmpDir = () => {
+	if (!_resolved) {
+		_resolved = fs.realpathSync(TMP_DIR);
+	}
+
+	return _resolved;
+};
+
+const tempfile = filepath => path.join(getTmpDir(), uuid.v4(), (filepath || ''));
 
 const writeStream = (filepath, input) => new Promise((resolve, reject) => {
 	const writable = fs.createWriteStream(filepath);
