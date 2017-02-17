@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "ava": "*",
+    "proxyquire": "^1.7.11",
     "xo": "*"
   }
 }
