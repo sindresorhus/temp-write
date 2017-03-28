@@ -1,25 +1,13 @@
 'use strict';
-const os = require('os');
 const path = require('path');
 const fs = require('graceful-fs');
 const isStream = require('is-stream');
 const mkdirp = require('mkdirp');
 const uuid = require('uuid');
 const pify = require('pify');
+const tempDir = require('temp-dir');
 
-const TMP_DIR = os.tmpdir();
-
-// Workaround for https://github.com/nodejs/node/issues/11422
-let _resolved;
-const getTmpDir = () => {
-	if (!_resolved) {
-		_resolved = fs.realpathSync(TMP_DIR);
-	}
-
-	return _resolved;
-};
-
-const tempfile = filepath => path.join(getTmpDir(), uuid.v4(), (filepath || ''));
+const tempfile = filepath => path.join(tempDir, uuid.v4(), (filepath || ''));
 
 const writeStream = (filepath, input) => new Promise((resolve, reject) => {
 	const writable = fs.createWriteStream(filepath);

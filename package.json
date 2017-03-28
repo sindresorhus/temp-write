@@ -38,11 +38,11 @@
     "is-stream": "^1.1.0",
     "mkdirp": "^0.5.0",
     "pify": "^2.2.0",
+    "temp-dir": "^1.0.0",
     "uuid": "^3.0.1"
   },
   "devDependencies": {
     "ava": "*",
-    "proxyquire": "^1.7.11",
     "xo": "*"
   }
 }
