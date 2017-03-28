@@ -57,7 +57,7 @@ Optionally supply a filepath which is appended to the random path.
 
 ## Related
 
-- [tempfile](https://github.com/sindresorhus/tempfile) - Get a random temp file path
+- [tempy](https://github.com/sindresorhus/tempy) - Get a random temporary file or directory path
 
 
 ## License

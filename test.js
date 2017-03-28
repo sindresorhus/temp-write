@@ -11,19 +11,19 @@ test('tempWrite(string)', async t => {
 });
 
 test('tempWrite(buffer)', async t => {
-	const filepath = await m(new Buffer('unicorn'), 'test.png');
+	const filepath = await m(Buffer.from('unicorn'), 'test.png');
 	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
 });
 
 test('tempWrite(buffer, path)', async t => {
-	const filepath = await m(new Buffer('unicorn'), 'foo/bar/test.png');
+	const filepath = await m(Buffer.from('unicorn'), 'foo/bar/test.png');
 	t.is(fs.readFileSync(filepath, 'utf8'), 'unicorn');
 	t.regex(filepath, /foo\/bar\/test\.png$/);
 });
 
 test('tempWrite(stream)', async t => {
 	const readable = new stream.Readable({
-		read() {} // noop
+		read() {} // Noop
 	});
 	readable.push('unicorn');
 	readable.push(null);
