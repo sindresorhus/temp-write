@@ -2,7 +2,7 @@
 const path = require('path');
 const fs = require('graceful-fs');
 const isStream = require('is-stream');
-const mkdirp = require('mkdirp');
+const makeDir = require('make-dir');
 const uuid = require('uuid');
 const pify = require('pify');
 const tempDir = require('temp-dir');
@@ -30,7 +30,7 @@ module.exports = (input, filepath) => {
 	const tempPath = tempfile(filepath);
 	const write = isStream(input) ? writeStream : pify(fs.writeFile);
 
-	return pify(mkdirp)(path.dirname(tempPath))
+	return makeDir(path.dirname(tempPath))
 		.then(() => write(tempPath, input))
 		.then(() => tempPath);
 };
@@ -38,7 +38,7 @@ module.exports = (input, filepath) => {
 module.exports.sync = (input, filepath) => {
 	const tempPath = tempfile(filepath);
 
-	mkdirp.sync(path.dirname(tempPath));
+	makeDir.sync(path.dirname(tempPath));
 	fs.writeFileSync(tempPath, input);
 
 	return tempPath;
