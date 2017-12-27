@@ -6,7 +6,7 @@
 ## Install
 
 ```
-$ npm install --save temp-write
+$ npm install temp-write
 ```
 
 
@@ -43,7 +43,7 @@ Returns the filepath of the temp file.
 
 #### input
 
-Type: `string` `Buffer` `ReadableStream`
+Type: `string` `Buffer` `stream.Readable`
 
 Data to write to the temp file. Streams are supported only with the async API.
 
