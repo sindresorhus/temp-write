@@ -10,13 +10,14 @@
     "url": "sindresorhus.com"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=8"
   },
   "scripts": {
-    "test": "xo && ava"
+    "test": "xo && ava && tsd"
   },
   "files": [
-    "index.js"
+		"index.js",
+		"index.d.ts"
   ],
   "keywords": [
     "tmp",
@@ -35,15 +36,15 @@
     "stream"
   ],
   "dependencies": {
-    "graceful-fs": "^4.1.2",
-    "is-stream": "^1.1.0",
-    "make-dir": "^1.0.0",
-    "pify": "^3.0.0",
+    "graceful-fs": "^4.1.15",
+    "is-stream": "^2.0.0",
+    "make-dir": "^3.0.0",
     "temp-dir": "^1.0.0",
-    "uuid": "^3.0.1"
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "ava": "*",
-    "xo": "*"
+    "ava": "^1.4.1",
+    "tsd": "^0.7.2",
+    "xo": "^0.24.0"
   }
 }
