@@ -50,7 +50,7 @@ Data to write to the temp file. Streams are supported only with the async API.
 #### filePath
 
 Type: `string`<br>
-Example: `'img.png'` `'foo/bar/baz.png'`
+Examples: `'img.png'` `'foo/bar/baz.png'`
 
 Optionally supply a file path which is appended to the random path.
 

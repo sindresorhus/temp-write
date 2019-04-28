@@ -1,50 +1,48 @@
 {
-  "name": "temp-write",
-  "version": "3.4.0",
-  "description": "Write string/buffer/stream to a random temp file",
-  "license": "MIT",
-  "repository": "sindresorhus/temp-write",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "engines": {
-    "node": ">=8"
-  },
-  "scripts": {
-    "test": "xo && ava && tsd"
-  },
-  "files": [
+	"name": "temp-write",
+	"version": "3.4.0",
+	"description": "Write string/buffer/stream to a random temp file",
+	"license": "MIT",
+	"repository": "sindresorhus/temp-write",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=8"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"files": [
 		"index.js",
 		"index.d.ts"
-  ],
-  "keywords": [
-    "tmp",
-    "temp",
-    "temporary",
-    "tempfile",
-    "file",
-    "filename",
-    "path",
-    "random",
-    "rand",
-    "write",
-    "fs",
-    "string",
-    "buffer",
-    "stream"
-  ],
-  "dependencies": {
-    "graceful-fs": "^4.1.15",
-    "is-stream": "^2.0.0",
-    "make-dir": "^3.0.0",
-    "temp-dir": "^1.0.0",
-    "uuid": "^3.3.2"
-  },
-  "devDependencies": {
-    "ava": "^1.4.1",
-    "tsd": "^0.7.2",
-    "xo": "^0.24.0"
-  }
+	],
+	"keywords": [
+		"temp",
+		"temporary",
+		"tempfile",
+		"file",
+		"filename",
+		"path",
+		"random",
+		"write",
+		"fs",
+		"string",
+		"buffer",
+		"stream"
+	],
+	"dependencies": {
+		"graceful-fs": "^4.1.15",
+		"is-stream": "^2.0.0",
+		"make-dir": "^3.0.0",
+		"temp-dir": "^1.0.0",
+		"uuid": "^3.3.2"
+	},
+	"devDependencies": {
+		"ava": "^1.4.1",
+		"tsd": "^0.7.2",
+		"xo": "^0.24.0"
+	}
 }
