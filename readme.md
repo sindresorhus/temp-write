@@ -16,10 +16,10 @@ $ npm install temp-write
 const fs = require('fs');
 const tempWrite = require('temp-write');
 
-const filepath = tempWrite.sync('unicorn');
+const filePath = tempWrite.sync('unicorn');
 //=> '/var/folders/_1/tk89k8215ts0rg0kmb096nj80000gn/T/4049f192-43e7-43b2-98d9-094e6760861b'
 
-fs.readFileSync(filepath, 'utf8');
+fs.readFileSync(filePath, 'utf8');
 //=> 'unicorn'
 
 
@@ -33,26 +33,26 @@ tempWrite.sync('unicorn', 'rainbow/cake/pony.png');
 
 ## API
 
-### tempWrite(input, [filepath])
+### tempWrite(fileContent, [filePath])
 
-Returns a `Promise` for the filepath of the temp file.
+Returns a `Promise` for the file path of the temp file.
 
-### tempWrite.sync(input, [filepath])
+### tempWrite.sync(fileContent, [filePath])
 
-Returns the filepath of the temp file.
+Returns the file path of the temp file.
 
-#### input
+#### fileContent
 
-Type: `string` `Buffer` `stream.Readable`
+Type: `string | Buffer | stream.Readable`
 
 Data to write to the temp file. Streams are supported only with the async API.
 
-#### filepath
+#### filePath
 
 Type: `string`<br>
 Example: `'img.png'` `'foo/bar/baz.png'`
 
-Optionally supply a filepath which is appended to the random path.
+Optionally supply a file path which is appended to the random path.
 
 
 ## Related
