@@ -4,10 +4,11 @@
 	"description": "Write string/buffer/stream to a random temp file",
 	"license": "MIT",
 	"repository": "sindresorhus/temp-write",
+	"funding": "https://github.com/sponsors/sindresorhus",
 	"author": {
 		"name": "Sindre Sorhus",
 		"email": "sindresorhus@gmail.com",
-		"url": "sindresorhus.com"
+		"url": "https://sindresorhus.com"
 	},
 	"engines": {
 		"node": ">=8"
