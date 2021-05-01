@@ -1,6 +1,7 @@
 'use strict';
 const {promisify} = require('util');
 const path = require('path');
+const stream = require('stream');
 const fs = require('graceful-fs');
 const isStream = require('is-stream');
 const makeDir = require('make-dir');
@@ -8,25 +9,13 @@ const uuid = require('uuid');
 const tempDir = require('temp-dir');
 
 const writeFileP = promisify(fs.writeFile);
+const pipelineP = promisify(stream.pipeline);
 
 const tempfile = filePath => path.join(tempDir, uuid.v4(), (filePath || ''));
 
-const writeStream = async (filePath, fileContent) => new Promise((resolve, reject) => {
-	const writable = fs.createWriteStream(filePath);
-
-	fileContent
-		.on('error', error => {
-			// Be careful to reject before writable.end(), otherwise the writable's
-			// 'finish' event will fire first and we will resolve the promise
-			// before we reject it.
-			reject(error);
-			fileContent.unpipe(writable);
-			writable.end();
-		})
-		.pipe(writable)
-		.on('error', reject)
-		.on('finish', resolve);
-});
+const writeStream = async (filePath, fileContent) => {
+	await pipelineP(fileContent, fs.createWriteStream(filePath));
+};
 
 module.exports = async (fileContent, filePath) => {
 	const tempPath = tempfile(filePath);
