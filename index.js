@@ -13,9 +13,7 @@ const pipelineP = promisify(stream.pipeline);
 
 const tempfile = filePath => path.join(tempDir, uuid.v4(), (filePath || ''));
 
-const writeStream = async (filePath, fileContent) => {
-	await pipelineP(fileContent, fs.createWriteStream(filePath));
-};
+const writeStream = async (filePath, data) => pipelineP(data, fs.createWriteStream(filePath));
 
 module.exports = async (fileContent, filePath) => {
 	const tempPath = tempfile(filePath);
