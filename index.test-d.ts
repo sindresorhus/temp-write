@@ -1,5 +1,5 @@
 import {expectType} from 'tsd';
-import tempWrite = require('.');
+import tempWrite from './index.js';
 
 expectType<Promise<string>>(tempWrite('unicorn'));
 expectType<Promise<string>>(tempWrite('unicorn', 'pony.png'));

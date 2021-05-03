@@ -11,15 +11,14 @@ $ npm install temp-write
 ## Usage
 
 ```js
-const fs = require('fs');
-const tempWrite = require('temp-write');
+import fs from 'node:fs';
+import tempWrite from 'temp-write';
 
 const filePath = tempWrite.sync('unicorn');
 //=> '/var/folders/_1/tk89k8215ts0rg0kmb096nj80000gn/T/4049f192-43e7-43b2-98d9-094e6760861b'
 
 fs.readFileSync(filePath, 'utf8');
 //=> 'unicorn'
-
 
 tempWrite.sync('unicorn', 'pony.png');
 //=> '/var/folders/_1/tk89k8215ts0rg0kmb096nj80000gn/T/4049f192-43e7-43b2-98d9-094e6760861b/pony.png'

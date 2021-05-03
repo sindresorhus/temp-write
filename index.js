@@ -1,35 +1,32 @@
-'use strict';
-const {promisify} = require('util');
-const path = require('path');
-const stream = require('stream');
-const fs = require('graceful-fs');
-const isStream = require('is-stream');
-const makeDir = require('make-dir');
-const uuid = require('uuid');
-const tempDir = require('temp-dir');
+import {promisify} from 'node:util';
+import path from 'node:path';
+import stream from 'node:stream';
+import fs from 'graceful-fs';
+import isStream from 'is-stream';
+import {v4 as uuidv4} from 'uuid';
+import tempDirectory from 'temp-dir';
 
 const writeFileP = promisify(fs.writeFile);
+const mkdirP = promisify(fs.mkdir);
 const pipelineP = promisify(stream.pipeline);
-
-const tempfile = filePath => path.join(tempDir, uuid.v4(), (filePath || ''));
-
+const tempfile = (filePath = '') => path.join(tempDirectory, uuidv4(), filePath);
 const writeStream = async (filePath, data) => pipelineP(data, fs.createWriteStream(filePath));
 
-module.exports = async (fileContent, filePath) => {
-	const tempPath = tempfile(filePath);
+export default async function tempWrite(fileContent, filePath) { // eslint-disable-line unicorn/prevent-abbreviations
+	const temporaryPath = tempfile(filePath);
 	const write = isStream(fileContent) ? writeStream : writeFileP;
 
-	await makeDir(path.dirname(tempPath));
-	await write(tempPath, fileContent);
+	await mkdirP(path.dirname(temporaryPath), {recursive: true});
+	await write(temporaryPath, fileContent);
 
-	return tempPath;
-};
+	return temporaryPath;
+}
 
-module.exports.sync = (fileContent, filePath) => {
-	const tempPath = tempfile(filePath);
+tempWrite.sync = (fileContent, filePath) => {
+	const temporaryPath = tempfile(filePath);
 
-	makeDir.sync(path.dirname(tempPath));
-	fs.writeFileSync(tempPath, fileContent);
+	fs.mkdirSync(path.dirname(temporaryPath), {recursive: true});
+	fs.writeFileSync(temporaryPath, fileContent);
 
-	return tempPath;
+	return temporaryPath;
 };

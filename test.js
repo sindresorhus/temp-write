@@ -1,8 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import stream from 'stream';
+import fs from 'node:fs';
+import path from 'node:path';
+import stream from 'node:stream';
 import test from 'ava';
-import tempWrite from '.';
+import tempWrite from './index.js';
 
 test('tempWrite(string)', async t => {
 	const filePath = await tempWrite('unicorn', 'test.png');
@@ -25,8 +25,10 @@ test('tempWrite(stream)', async t => {
 	const readable = new stream.Readable({
 		read() {} // Noop
 	});
+
 	readable.push('unicorn');
-	readable.push(null);
+	readable.push(null); // eslint-disable-line unicorn/no-array-push-push
+
 	const filePath = await tempWrite(readable, 'test.png');
 	t.is(fs.readFileSync(filePath, 'utf8'), 'unicorn');
 });
