@@ -1,10 +1,10 @@
 declare const tempWrite: { // eslint-disable-line unicorn/prevent-abbreviations
 	/**
-	Write string/buffer/stream to a random temp file.
+	Write data to a random temporary file.
 
-	@param fileContent - Data to write to the temp file.
-	@param filePath - Optionally supply a file path which is appended to the random path. Example: `'img.png'` `'foo/bar/baz.png'`.
-	@returns The file path of the temp file.
+	@param fileContent - The data to write to the temporary file.
+	@param filePath - Optionally specify a file path which is appended to the random path. Example: `'img.png'` `'foo/bar/baz.png'`.
+	@returns The file path of the temporary file.
 
 	@example
 	```
@@ -24,14 +24,14 @@ declare const tempWrite: { // eslint-disable-line unicorn/prevent-abbreviations
 	//=> '/var/folders/_1/tk89k8215ts0rg0kmb096nj80000gn/T/4049f192-43e7-43b2-98d9-094e6760861b/rainbow/cake/pony.png'
 	```
 	*/
-	(fileContent: string | Buffer | NodeJS.ReadableStream, filePath?: string): Promise<string>;
+	(fileContent: string | Uint8Array | NodeJS.ReadableStream, filePath?: string): Promise<string>;
 
 	/**
-	Synchronously write string/buffer/stream to a random temp file.
+	Synchronously write data to a random temporary file.
 
-	@param fileContent - Data to write to the temp file.
-	@param filePath - Optionally supply a file path which is appended to the random path. Example: `'img.png'` `'foo/bar/baz.png'`.
-	@returns The file path of the temp file.
+	@param fileContent - The data to write to the temporary file.
+	@param filePath - Optionally specify a file path which is appended to the random path. Example: `'img.png'` `'foo/bar/baz.png'`.
+	@returns The file path of the temporary file.
 
 	@example
 	```
@@ -51,7 +51,7 @@ declare const tempWrite: { // eslint-disable-line unicorn/prevent-abbreviations
 	//=> '/var/folders/_1/tk89k8215ts0rg0kmb096nj80000gn/T/4049f192-43e7-43b2-98d9-094e6760861b/rainbow/cake/pony.png'
 	```
 	*/
-	sync(fileContent: string | Buffer, filePath?: string): string;
+	sync(fileContent: string | Uint8Array, filePath?: string): string;
 };
 
 export default tempWrite;

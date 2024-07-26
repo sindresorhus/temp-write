@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import stream from 'node:stream';
 import test from 'ava';
+import {stringToUint8Array} from 'uint8array-extras';
 import tempWrite from './index.js';
 
 test('tempWrite(string)', async t => {
@@ -10,20 +11,20 @@ test('tempWrite(string)', async t => {
 	t.is(path.basename(filePath), 'test.png');
 });
 
-test('tempWrite(buffer)', async t => {
-	const filePath = await tempWrite(Buffer.from('unicorn'), 'test.png');
+test('tempWrite(data)', async t => {
+	const filePath = await tempWrite(stringToUint8Array('unicorn'), 'test.png');
 	t.is(fs.readFileSync(filePath, 'utf8'), 'unicorn');
 });
 
-test('tempWrite(buffer, path)', async t => {
-	const filePath = await tempWrite(Buffer.from('unicorn'), 'foo/bar/test.png');
+test('tempWrite(data, path)', async t => {
+	const filePath = await tempWrite(stringToUint8Array('unicorn'), 'foo/bar/test.png');
 	t.is(fs.readFileSync(filePath, 'utf8'), 'unicorn');
 	t.regex(filePath, /foo\/bar\/test\.png$/);
 });
 
 test('tempWrite(stream)', async t => {
 	const readable = new stream.Readable({
-		read() {} // Noop
+		read() {}, // Noop
 	});
 
 	readable.push('unicorn');

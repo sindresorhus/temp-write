@@ -1,7 +1,7 @@
 {
 	"name": "temp-write",
 	"version": "5.0.0",
-	"description": "Write string/buffer/stream to a random temp file",
+	"description": "Write data to a random temporary file",
 	"license": "MIT",
 	"repository": "sindresorhus/temp-write",
 	"funding": "https://github.com/sponsors/sindresorhus",
@@ -11,12 +11,16 @@
 		"url": "https://sindresorhus.com"
 	},
 	"type": "module",
-	"exports": "./index.js",
+	"exports": {
+		"types": "./index.d.ts",
+		"default": "./index.js"
+	},
+	"sideEffects": false,
 	"engines": {
-		"node": ">=12"
+		"node": ">=18"
 	},
 	"scripts": {
-		"test": "xo && ava && tsd"
+		"test": "xo && ava && tsc index.d.ts"
 	},
 	"files": [
 		"index.js",
@@ -34,17 +38,19 @@
 		"fs",
 		"string",
 		"buffer",
-		"stream"
+		"uint8array",
+		"stream",
+		"data"
 	],
 	"dependencies": {
-		"graceful-fs": "^4.2.6",
-		"is-stream": "^2.0.0",
-		"temp-dir": "^2.0.0",
-		"uuid": "^8.3.2"
+		"graceful-fs": "^4.2.11",
+		"is-stream": "^4.0.1",
+		"temp-dir": "^3.0.0"
 	},
 	"devDependencies": {
-		"ava": "^3.15.0",
-		"tsd": "^0.14.0",
-		"xo": "^0.39.1"
+		"ava": "^6.1.3",
+		"typescript": "^5.5.4",
+		"uint8array-extras": "^1.4.0",
+		"xo": "^0.59.2"
 	}
 }

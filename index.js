@@ -1,15 +1,15 @@
 import {promisify} from 'node:util';
 import path from 'node:path';
 import stream from 'node:stream';
+import {randomUUID} from 'node:crypto';
 import fs from 'graceful-fs';
-import isStream from 'is-stream';
-import {v4 as uuidv4} from 'uuid';
+import {isStream} from 'is-stream';
 import tempDirectory from 'temp-dir';
 
 const writeFileP = promisify(fs.writeFile);
 const mkdirP = promisify(fs.mkdir);
 const pipelineP = promisify(stream.pipeline);
-const tempfile = (filePath = '') => path.join(tempDirectory, uuidv4(), filePath);
+const tempfile = (filePath = '') => path.join(tempDirectory, randomUUID(), filePath);
 const writeStream = async (filePath, data) => pipelineP(data, fs.createWriteStream(filePath));
 
 export default async function tempWrite(fileContent, filePath) { // eslint-disable-line unicorn/prevent-abbreviations

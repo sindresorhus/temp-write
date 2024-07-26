@@ -1,11 +1,11 @@
 # temp-write
 
-> Write string/buffer/stream to a random temp file
+> Write data to a random temporary file
 
 ## Install
 
-```
-$ npm install temp-write
+```sh
+npm install temp-write
 ```
 
 ## Usage
@@ -31,37 +31,25 @@ tempWrite.sync('unicorn', 'rainbow/cake/pony.png');
 
 ### tempWrite(fileContent, filePath?)
 
-Returns a `Promise` for the file path of the temp file.
+Returns a `Promise` for the file path of the temporary file.
 
 ### tempWrite.sync(fileContent, filePath?)
 
-Returns the file path of the temp file.
+Returns the file path of the temporary file.
 
 #### fileContent
 
-Type: `string | Buffer | stream.Readable`
+Type: `string | Uint8Array | stream.Readable`
 
-Data to write to the temp file. Streams are supported only with the async API.
+The data to write to the temporary file. Streams are supported only with the async API.
 
 #### filePath
 
 Type: `string`\
 Examples: `'img.png'` `'foo/bar/baz.png'`
 
-Optionally supply a file path which is appended to the random path.
+Optionally specify a file path which is appended to the random path.
 
 ## Related
 
 - [tempy](https://github.com/sindresorhus/tempy) - Get a random temporary file or directory path
-
----
-
-<div align="center">
-	<b>
-		<a href="https://tidelift.com/subscription/pkg/npm-temp-write?utm_source=npm-temp-write&utm_medium=referral&utm_campaign=readme">Get professional support for this package with a Tidelift subscription</a>
-	</b>
-	<br>
-	<sub>
-		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
-	</sub>
-</div>
