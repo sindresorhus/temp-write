@@ -37,3 +37,25 @@ test('tempWrite(stream)', async t => {
 test('tempWrite.sync()', t => {
 	t.is(fs.readFileSync(tempWrite.sync('unicorn'), 'utf8'), 'unicorn');
 });
+
+test('allows relative paths that stay within temp directory', async t => {
+	const filePath = await tempWrite('unicorn', 'foo/../bar/test.txt');
+	t.is(fs.readFileSync(filePath, 'utf8'), 'unicorn');
+	t.true(filePath.endsWith('bar/test.txt'));
+});
+
+test('rejects paths that escape temp directory', async t => {
+	await t.throwsAsync(tempWrite('content', '../foo'), {message: /Path traversal detected/});
+	await t.throwsAsync(tempWrite('content', '../../foo'), {message: /Path traversal detected/});
+	await t.throwsAsync(tempWrite('content', 'foo/../../bar'), {message: /Path traversal detected/});
+});
+
+test('rejects paths that escape temp directory (sync)', t => {
+	t.throws(() => tempWrite.sync('content', '../foo'), {message: /Path traversal detected/});
+	t.throws(() => tempWrite.sync('content', '../../foo'), {message: /Path traversal detected/});
+	t.throws(() => tempWrite.sync('content', 'foo/../../bar'), {message: /Path traversal detected/});
+});
+
+test('rejects absolute paths', async t => {
+	await t.throwsAsync(tempWrite('content', '/etc/passwd'), {message: /must be relative/});
+});
